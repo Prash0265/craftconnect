@@ -4,9 +4,10 @@ import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react
 
 const AfterLogin = () => {
   const [artItems, setArtItems] = useState([
-    { id: '1', image: require('../assets/image1.avif'), isFavorite: false },
-    { id: '2', image: require('../assets/image2.jpeg'), isFavorite: false },
-    { id: '3', image: require('../assets/image3.jpeg'), isFavorite: false },
+    { id: '1', image: require('../assets/image1.webp'), isFavorite: false },
+    { id: '2', image: require('../assets/image2.jpg'), isFavorite: false },
+    { id: '3', image: require('../assets/image3.avif'), isFavorite: false },
+    { id: '3', image: require('../assets/image4.jpeg'), isFavorite: false },
     // Add more art items as needed
   ]);
 
