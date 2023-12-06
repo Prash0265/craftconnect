@@ -1,11 +1,13 @@
+//BottomTabNavigator.js
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import AfterLogin from '/Users/prashanthnanadaram/Desktop/capstone_project-main/project/frontend/craftconnect/screens/AfterLogin.js';
-import ProfileScreen from '/Users/prashanthnanadaram/Desktop/capstone_project-main/project/frontend/craftconnect/screens/ProfileScreen.js';
-import FavoritesScreen from '/Users/prashanthnanadaram/Desktop/capstone_project-main/project/frontend/craftconnect/screens/AfterLogin.js';
-import DealsScreen from '/Users/prashanthnanadaram/Desktop/capstone_project-main/project/frontend/craftconnect/screens/AfterLogin.js';
-import CartScreen from '/Users/prashanthnanadaram/Desktop/capstone_project-main/project/frontend/craftconnect/screens/AfterLogin.js';
+import AfterLogin from '../screens/AfterLogin.js';
+import ProfileScreen from '../screens/ProfileScreen.js';
+import FavoritesScreen from '../screens/FavoritesScreen.js';
+import DealsScreen from '../screens/DealsScreen.js';
+import CartScreen from '../screens/CartScreen.js';
 import { Ionicons } from 'react-native-vector-icons';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -16,7 +18,7 @@ const BottomTabNavigator = () => {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === 'AfterLogin') {
+          if (route.name === 'Home') {
             iconName = focused ? 'ios-home' : 'ios-home-outline';
           } else if (route.name === 'Profile') {
             iconName = focused ? 'ios-person' : 'ios-person-outline';
@@ -32,7 +34,7 @@ const BottomTabNavigator = () => {
         },
       })}
     >
-      <Tab.Screen name="AfterLogin" component={AfterLogin} />
+      <Tab.Screen name="Home" component={AfterLogin} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
       <Tab.Screen name="Favorites" component={FavoritesScreen} />
       <Tab.Screen name="Deals" component={DealsScreen} />
