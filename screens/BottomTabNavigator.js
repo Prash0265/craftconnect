@@ -11,7 +11,10 @@ import { Ionicons } from 'react-native-vector-icons';
 
 const Tab = createBottomTabNavigator();
 
-const BottomTabNavigator = () => {
+const BottomTabNavigator = ({route}) => {
+  const { user } = route.params || {};
+  console.log('User in BottomTabNavigator:', user);
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -35,7 +38,7 @@ const BottomTabNavigator = () => {
       })}
     >
       <Tab.Screen name="Home" component={AfterLogin} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
+      <Tab.Screen name="Profile" component={ProfileScreen} initialParams={{ user: user }} />
       <Tab.Screen name="Favorites" component={FavoritesScreen} />
       <Tab.Screen name="Deals" component={DealsScreen} />
       <Tab.Screen name="Cart" component={CartScreen} />

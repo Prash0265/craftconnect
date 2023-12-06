@@ -1,4 +1,3 @@
-//LoginScreen.js
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import axios from 'axios';
@@ -11,14 +10,12 @@ const LoginScreen = () => {
 
   const handleLogin = async () => {
     try {
-      //const response = await axios.post('http://10.0.0.221:3000/login', { username, password }); //Baymills
-      const response = await axios.post('http://10.51.223.182:3000/login', { username, password }); //cestar
-     
+      const response = await axios.post('http:/10.51.230.239:3000/login', { username, password });
 
       if (response.data.message === 'Login successful') {
-        console.log("login successful", username);
+        console.log("login successful", username, response.data.user);
          // Navigate to the screen with bottom tab navigator
-         navigation.navigate('BottomTabNavigator');
+         navigation.navigate('BottomTabNavigator', { user: response.data.user });
       }
     } catch (error) {
       console.error('Login failed:', error);
