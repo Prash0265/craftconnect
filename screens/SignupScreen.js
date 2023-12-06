@@ -6,11 +6,13 @@ import axios from 'axios';
 const SignupScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [dob, setDob] = useState(''); 
 
   const handleSignup = async () => {
     try {
       //await axios.post('http://10.0.0.221:3000/signup', { username, password });//Baymills
-      await axios.post('http://10.51.223.182:3000/signup', { username, password }); //Cestar
+      await axios.post('http://10.51.230.239:3000/signup', {username, password ,email, dob }); //Cestar
 
       Alert.alert('Signup Successful', 'You have successfully signed up!', [
         {
@@ -48,6 +50,25 @@ const SignupScreen = ({ navigation }) => {
             secureTextEntry
           />
         </View>
+        <View style={styles.inputContainer}>
+  <TextInput
+    style={styles.textInput}
+    placeholder="Email"
+    placeholderTextColor="#999"
+    value={email}
+    onChangeText={(text) => setEmail(text)}
+  />
+</View>
+
+<View style={styles.inputContainer}>
+  <TextInput
+    style={styles.textInput}
+    placeholder="Date of Birth (YYYY-MM-DD)"
+    placeholderTextColor="#999"
+    value={dob}
+    onChangeText={(text) => setDob(text)}
+  />
+</View>
         <Text
           style={styles.button1}
           onPress={handleSignup}
@@ -58,6 +79,7 @@ const SignupScreen = ({ navigation }) => {
     </View>
   );
 };
+
 
 export default SignupScreen;
 
@@ -105,7 +127,7 @@ const styles = StyleSheet.create({
   textInput: {
     height: 40,
     padding: 10,
-    color: '#F0F0F0',
+    color: '#262E36',
     fontSize: 16,
     width: '100%',
   },
