@@ -1,6 +1,7 @@
 // AfterLogin.js
 import React, { useState } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome'; // Import the heart icon
 
 const AfterLogin = () => {
   const [artItems, setArtItems] = useState([
@@ -8,7 +9,6 @@ const AfterLogin = () => {
     { id: '2', image: require('../assets/image2.jpg'), isFavorite: false },
     { id: '3', image: require('../assets/image3.avif'), isFavorite: false },
     { id: '4', image: require('../assets/image4.jpeg'), isFavorite: false },
-    // Add more art items as needed
   ]);
 
   const toggleFavorite = (itemId) => {
@@ -22,8 +22,8 @@ const AfterLogin = () => {
   const renderArtItem = ({ item }) => (
     <View style={styles.artItemContainer}>
       <Image source={item.image} style={styles.artImage} />
-      <TouchableOpacity onPress={() => toggleFavorite(item.id)}>
-        <Text>{item.isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}</Text>
+      <TouchableOpacity onPress={() => toggleFavorite(item.id)} style={styles.favoriteButton}>
+        <Icon name={item.isFavorite ? 'heart' : 'heart-o'} size={24} color="#FF0000" />
       </TouchableOpacity>
     </View>
   );
@@ -35,7 +35,7 @@ const AfterLogin = () => {
         data={artItems}
         keyExtractor={(item) => item.id}
         renderItem={renderArtItem}
-        numColumns={2} // Adjust the number of columns as needed
+        numColumns={2}
       />
     </View>
   );
@@ -60,6 +60,11 @@ const styles = StyleSheet.create({
     height: 150,
     borderRadius: 8,
     marginBottom: 8,
+  },
+  favoriteButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
   },
 });
 
