@@ -7,7 +7,7 @@ const AfterLogin = () => {
     { id: '1', image: require('../assets/image1.webp'), isFavorite: false },
     { id: '2', image: require('../assets/image2.jpg'), isFavorite: false },
     { id: '3', image: require('../assets/image3.avif'), isFavorite: false },
-    { id: '3', image: require('../assets/image4.jpeg'), isFavorite: false },
+    { id: '4', image: require('../assets/image4.jpeg'), isFavorite: false },
     // Add more art items as needed
   ]);
 

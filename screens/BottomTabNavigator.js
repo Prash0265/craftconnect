@@ -1,46 +1,71 @@
-//BottomTabNavigator.js
-import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import AfterLogin from '../screens/AfterLogin.js';
-import ProfileScreen from '../screens/ProfileScreen.js';
-import FavoritesScreen from '../screens/FavoritesScreen.js';
-import DealsScreen from '../screens/DealsScreen.js';
-import CartScreen from '../screens/CartScreen.js';
-import { Ionicons } from 'react-native-vector-icons';
+// AfterLogin.js
+import React, { useState } from 'react';
+import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome'; // Import the heart icon
 
+const AfterLogin = () => {
+  const [artItems, setArtItems] = useState([
+    { id: '1', image: require('../assets/image1.webp'), isFavorite: false },
+    { id: '2', image: require('../assets/image2.jpg'), isFavorite: false },
+    { id: '3', image: require('../assets/image3.avif'), isFavorite: false },
+    { id: '4', image: require('../assets/image4.jpeg'), isFavorite: false },
+  ]);
 
-const Tab = createBottomTabNavigator();
+  const toggleFavorite = (itemId) => {
+    setArtItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === itemId ? { ...item, isFavorite: !item.isFavorite } : item
+      )
+    );
+  };
 
-const BottomTabNavigator = () => {
+  const renderArtItem = ({ item }) => (
+    <View style={styles.artItemContainer}>
+      <Image source={item.image} style={styles.artImage} />
+      <TouchableOpacity onPress={() => toggleFavorite(item.id)} style={styles.favoriteButton}>
+        <Icon name={item.isFavorite ? 'heart' : 'heart-o'} size={24} color="#FF0000" />
+      </TouchableOpacity>
+    </View>
+  );
+
   return (
-    <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
-
-          if (route.name === 'Home') {
-            iconName = focused ? 'ios-home' : 'ios-home-outline';
-          } else if (route.name === 'Profile') {
-            iconName = focused ? 'ios-person' : 'ios-person-outline';
-          } else if (route.name === 'Favorites') {
-            iconName = focused ? 'ios-heart' : 'ios-heart-outline';
-          } else if (route.name === 'Deals') {
-            iconName = focused ? 'ios-flash' : 'ios-flash-outline';
-          } else if (route.name === 'Cart') {
-            iconName = focused ? 'ios-cart' : 'ios-cart-outline';
-          }
-
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
-      })}
-    >
-      <Tab.Screen name="Home" component={AfterLogin} />
-      <Tab.Screen name="Profile" component={ProfileScreen} />
-      <Tab.Screen name="Favorites" component={FavoritesScreen} />
-      <Tab.Screen name="Deals" component={DealsScreen} />
-      <Tab.Screen name="Cart" component={CartScreen} />
-    </Tab.Navigator>
+    <View style={styles.container}>
+      <Text style={styles.heading}>Explore Curated Art Collection</Text>
+      <FlatList
+        data={artItems}
+        keyExtractor={(item) => item.id}
+        renderItem={renderArtItem}
+        numColumns={2}
+      />
+    </View>
   );
 };
 
-export default BottomTabNavigator;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  artItemContainer: {
+    flex: 1,
+    margin: 8,
+  },
+  artImage: {
+    width: '100%',
+    height: 150,
+    borderRadius: 8,
+    marginBottom: 8,
+  },
+  favoriteButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+  },
+});
+
+export default AfterLogin;
