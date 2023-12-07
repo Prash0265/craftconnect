@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios';
+import * as Font from 'expo-font';
 
 const SignupScreen = ({ navigation }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [dob, setDob] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false);
-  const [maximumDate, setMaximumDate] = useState(new Date());
+const [fontsLoaded, setFontsLoaded] = useState(false);
+const [username, setUsername] = useState('');
+const [password, setPassword] = useState('');
+const [email, setEmail] = useState('');
+const [dob, setDob] = useState(new Date());
+const [showDatePicker, setShowDatePicker] = useState(false);
+const [maximumDate, setMaximumDate] = useState(new Date());
+
 
   useEffect(() => {
     setMaximumDate(new Date());
@@ -85,7 +88,7 @@ const SignupScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.formContainer}>
-        <Text style={styles.text}>Signup</Text>
+        <Text style={styles.text}>Sign Up</Text>
 
         <View style={styles.inputContainer}>
           <TextInput
@@ -100,17 +103,6 @@ const SignupScreen = ({ navigation }) => {
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.textInput}
-            placeholder="Password"
-            placeholderTextColor="#999"
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-            secureTextEntry
-          />
-        </View>
-
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.textInput}
             placeholder="Email"
             placeholderTextColor="#999"
             value={email}
@@ -118,6 +110,17 @@ const SignupScreen = ({ navigation }) => {
           />
         </View>
 
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Password"
+            placeholderTextColor="#999"
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+            secureTextEntry
+          />
+        </View>
+        
         <View style={styles.inputContainer}>
           <Button onPress={showDatepicker} title="Select Date of Birth" />
           {showDatePicker && (
@@ -131,9 +134,13 @@ const SignupScreen = ({ navigation }) => {
             />
           )}
         </View>
+        {/* Already a member? Log on */}
+        <Text style={styles.logOnText} onPress={() => navigation.navigate('Login')}>
+          Already a member? Log In
+        </Text>
 
         <Text style={styles.button1} onPress={handleSignup}>
-          Signup
+          Sign up
         </Text>
       </View>
     </View>
@@ -161,7 +168,10 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   text: {
-    fontSize: 20,
+    fontSize: 35,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'Cormorant', // Use San Francisco on iOS, fallback to a system font on Android
     color: '#262E36',
     marginBottom: 10,
   },
@@ -187,6 +197,13 @@ const styles = StyleSheet.create({
     color: '#262E36',
     fontSize: 16,
     width: '100%',
+  },
+  logOnText: {
+    fontFamily: Platform.OS === 'ios' ? 'Avenir-Book' : 'sans-serif', // Example fonts, replace with your desired fonts
+    color: '#262E36',
+    fontSize: 16,
+    textAlign: 'center',
+    margin: 10,
   },
   dateTimePicker: {
     width: '100%',
