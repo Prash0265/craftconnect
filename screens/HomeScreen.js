@@ -1,7 +1,6 @@
 //HomeScreen.js
 import React from 'react';
 import { View, Text, Button,StyleSheet,Image } from 'react-native';
-import pattern from '../assets/pattern.jpg'
 import welcomelogo from '../assets/logo1.png'
 const HomeScreen = ({ navigation }) => {
   return (

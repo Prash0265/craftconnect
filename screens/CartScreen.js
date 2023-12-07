@@ -1,14 +1,15 @@
-// ProfileScreen.js
+// CartScreen.js
 import React from 'react';
 import { View, Text } from 'react-native';
 
-const ProfileScreen = () => {
+const CartScreen = () => {
   return (
     <View>
-      <Text>Profile Screen </Text>
+      <Text>Cart Screen </Text>
       {/* Add your component content here */}
+      
     </View>
   );
 };
 
-export default ProfileScreen;
+export default CartScreen;

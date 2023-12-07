@@ -13,7 +13,7 @@ const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = ({route}) => {
   const { user } = route.params || {};
-  console.log('User in BottomTabNavigator:', user);
+  // console.log('User in BottomTabNavigator:', user);
 
   return (
     <Tab.Navigator

@@ -8,6 +8,8 @@ import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import BottomTabNavigator from './screens/BottomTabNavigator';
+import { FavoriteProvider } from './screens/FavoriteContext';
+
  
 const Stack = createStackNavigator();
  
@@ -25,6 +27,7 @@ export default function App() {
  
   return (
 <NavigationContainer>
+<FavoriteProvider>
 <Stack.Navigator initialRouteName="Splash">
         {/* Add the SplashScreen screen */}
         {isSplashVisible ? (
@@ -38,6 +41,7 @@ export default function App() {
 </>
         )}
 </Stack.Navigator>
+</FavoriteProvider>
 </NavigationContainer>
   );
 }

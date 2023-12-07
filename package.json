@@ -25,6 +25,7 @@
     "react-native-screens": "^3.27.0",
     "react-native-toast-message": "^2.1.8",
     "react-native-vector-icons": "^10.0.2",
+    "react-native-webview": "^13.6.3",
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4"
   },
