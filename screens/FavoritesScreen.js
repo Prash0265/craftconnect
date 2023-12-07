@@ -1,18 +1,30 @@
-import React from 'react';
-import { View, Text, FlatList, Image, StyleSheet } from 'react-native';
+
+import React, { useState } from 'react';
+import { View, Text, FlatList, Image, StyleSheet,TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { useFavoriteContext } from './FavoriteContext';
 
 const FavoritesScreen = () => {
   const { favorites } = useFavoriteContext();
+  const [cartItems, setCartItems] = useState([]);
+  const [cartTotal, setCartTotal] = useState(0);
 
   const renderFavoriteItem = ({ item }) => (
     <View style={styles.artItemContainer}>
       <Image source={item.image} style={styles.artImage} />
       <View style={styles.priceContainer}>
         <Text style={styles.price}>${item.price.toFixed(2)}</Text>
+        <TouchableOpacity onPress={() => addToCart(item)} style={styles.cartButton}>
+          <Icon name="cart-plus" size={24} color="#fff" />
+        </TouchableOpacity>
       </View>
     </View>
   );
+
+  const addToCart = (item) => {
+    setCartItems((prevItems) => [...prevItems, item]);
+    setCartTotal((prevTotal) => prevTotal + item.price);
+  };
 
   return (
     <View style={styles.container}>
@@ -56,6 +68,13 @@ const styles = StyleSheet.create({
   price: {
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  cartButton: {
+    backgroundColor: '#000000',
+    borderRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 5,
   },
 });
 

@@ -1,16 +1,19 @@
-import React from 'react';
+//AfterLogin.js
+import React, { useState } from 'react';
 import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { useFavoriteContext } from './FavoriteContext';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const AfterLogin = () => {
+const AfterLogin = ({ navigation }) => {
   const { favorites, addToFavorites, removeFromFavorites } = useFavoriteContext();
+  const [cartItems, setCartItems] = useState([]);
+  const [cartTotal, setCartTotal] = useState(0);
 
   const artItems = [
-    { id: '1', image: require('../assets/image1.webp'), isFavorite: false, price: 29.99 },
-    { id: '2', image: require('../assets/image2.jpg'), isFavorite: false, price: 39.99 },
-    { id: '3', image: require('../assets/image3.avif'), isFavorite: false, price: 49.99 },
-    { id: '4', image: require('../assets/image4.jpeg'), isFavorite: false, price: 59.99 },
+    { id: 'Skull', image: require('../assets/image1.webp'), isFavorite: false, price: 29.99 },
+    { id: 'Cow', image: require('../assets/image2.jpg'), isFavorite: false, price: 39.99 },
+    { id: 'Abstract art', image: require('../assets/image3.avif'), isFavorite: false, price: 49.99 },
+    { id: 'Cycle art', image: require('../assets/image4.jpeg'), isFavorite: false, price: 59.99 },
   ];
 
   const toggleFavorite = (itemId) => {
@@ -21,12 +24,17 @@ const AfterLogin = () => {
     }
   };
 
+  const addToCart = (item) => {
+    setCartItems((prevItems) => [...prevItems, item]);
+    setCartTotal((prevTotal) => prevTotal + item.price);
+  };
+
   const renderArtItem = ({ item }) => (
     <View style={styles.artItemContainer}>
       <Image source={item.image} style={styles.artImage} />
       <View style={styles.priceContainer}>
         <Text style={styles.price}>${item.price.toFixed(2)}</Text>
-        <TouchableOpacity onPress={() => {}} style={styles.cartButton}>
+        <TouchableOpacity onPress={() => addToCart(item)} style={styles.cartButton}>
           <Icon name="cart-plus" size={24} color="#fff" />
         </TouchableOpacity>
       </View>
@@ -45,6 +53,12 @@ const AfterLogin = () => {
         renderItem={renderArtItem}
         numColumns={2}
       />
+      <TouchableOpacity
+        style={styles.viewCartButton}
+        onPress={() => navigation.navigate('Cart', { cartItems, cartTotal })}
+      >
+        <Text style={styles.viewCartButtonText}>View Cart</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -91,6 +105,17 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 8,
     right: 8,
+  },
+  viewCartButton: {
+    backgroundColor: '#262E36',
+    padding: 15,
+    borderRadius: 8,
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  viewCartButtonText: {
+    color: '#fff',
+    fontSize: 18,
   },
 });
 
