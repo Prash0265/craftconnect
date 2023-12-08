@@ -9,6 +9,10 @@ export const FavoriteProvider = ({ children }) => {
     setFavorites((prevFavorites) => [...prevFavorites, item]);
   };
 
+  // const addToFavorites = (item) => {
+  //   setFavorites((prevFavorites) => [...prevFavorites, item]);
+  // };
+  ///
   const removeFromFavorites = (itemId) => {
     setFavorites((prevFavorites) => prevFavorites.filter((item) => item.id !== itemId));
   };
