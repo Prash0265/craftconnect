@@ -10,10 +10,14 @@ const AfterLogin = ({ navigation }) => {
   const [cartTotal, setCartTotal] = useState(0);
 
   const artItems = [
-    { id: 'Skull', image: require('../assets/image1.webp'), isFavorite: false, price: 29.99 },
+   
     { id: 'Cow', image: require('../assets/image2.jpg'), isFavorite: false, price: 39.99 },
+    { id: 'Skull', image: require('../assets/image1.webp'), isFavorite: false, price: 12.99 },
+    { id: 'lion', image: require('../assets/lion.jpg'), isFavorite: false, price: 10.99 },
     { id: 'Abstract art', image: require('../assets/image3.avif'), isFavorite: false, price: 49.99 },
-    { id: 'Cycle art', image: require('../assets/image4.jpeg'), isFavorite: false, price: 59.99 },
+    { id: 'Cycle art', image: require('../assets/image4.jpeg'), isFavorite: false, price: 15.99 },
+    { id: 'Monalisa', image: require('../assets/Mona.jpg'), isFavorite: false, price: 29.99 },
+   
   ];
 
   const toggleFavorite = (itemId) => {

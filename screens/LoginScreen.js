@@ -10,9 +10,9 @@ const LoginScreen = () => {
 
   const handleLogin = async () => {
     try {
-     // const response = await axios.post('http:/10.51.230.239:3000/login', { username, password });
+      const response = await axios.post('http:/10.0.0.221:3000/login', { username, password }); //Baymills
       
-      const response = await axios.post('http:/10.51.223.182:3000/login', { username, password }); //cestar
+     // const response = await axios.post('http:/10.51.223.182:3000/login', { username, password }); //cestar
 
       if (response.data.message === 'Login successful') {
         console.log("login successful", username, response.data.user);

@@ -11,8 +11,8 @@ const SignupScreen = ({ navigation }) => {
 
   const handleSignup = async () => {
     try {
-      //await axios.post('http://10.0.0.221:3000/signup', { username, password });//Baymills
-      await axios.post('http://10.51.223.182:3000/signup', {username, password ,email, dob }); //Cestar
+      await axios.post('http://10.0.0.221:3000/signup', { username, password });//Baymills
+      //await axios.post('http://10.51.223.182:3000/signup', {username, password ,email, dob }); //Cestar
 
       Alert.alert('Signup Successful', 'You have successfully signed up!', [
         {
