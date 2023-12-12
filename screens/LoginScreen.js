@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = () => {
   const [username, setUsername] = useState('');
@@ -15,6 +16,7 @@ const LoginScreen = () => {
      // const response = await axios.post('http:/10.51.223.182:3000/login', { username, password }); //cestar
 
       if (response.data.message === 'Login successful') {
+        await AsyncStorage.setItem('username', username);
         console.log("login successful", username, response.data.user);
          // Navigate to the screen with bottom tab navigator
          navigation.navigate('BottomTabNavigator', { user: response.data.user });

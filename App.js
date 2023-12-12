@@ -10,6 +10,8 @@ import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import BottomTabNavigator from './screens/BottomTabNavigator';
 import { FavoriteProvider } from './screens/FavoriteContext';
+import AfterLogin from './screens/AfterLogin';
+import ArtDetails from './screens/ArtDetails';
 
 
 const Stack = createStackNavigator();
@@ -44,6 +46,8 @@ export default function App() {
                 <Stack.Screen name="Login" component={LoginScreen} />
                 <Stack.Screen name="Signup" component={SignupScreen} />
                 <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} />
+                <Stack.Screen name="AfterLogin" component={AfterLogin} />
+                <Stack.Screen name="ArtDetails" component={ArtDetails} />
               </>
             )}
           </Stack.Navigator>

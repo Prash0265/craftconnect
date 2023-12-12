@@ -1,98 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
-import { useStripe } from '@stripe/stripe-react-native';
 
-const CartScreen = ({ route }) => {
-  const { cartItems = [], cartTotal = 0 } = route.params || {};
-  const { initPaymentSheet, presentPaymentSheet } = useStripe();
-  const [loading, setLoading] = useState(false);
+import React, { useState } from 'react';
+import { View, Text, FlatList, Image, StyleSheet,TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { useFavoriteContext } from './FavoriteContext';
 
-  const renderCartItem = ({ item }) => (
-    <View style={styles.cartItemContainer}>
-      <Image source={item.image} style={styles.productImage} />
-      <View style={styles.productDetails}>
-        <Text style={styles.cartItemText}>{item.id}</Text>
-        <Text style={styles.cartItemText}>${item.price.toFixed(2)}</Text>
+const FavoritesScreen = ({navigation}) => {
+  const { favorites } = useFavoriteContext();
+  const [cartItems, setCartItems] = useState([]);
+  const [cartTotal, setCartTotal] = useState(0);
+
+  const renderFavoriteItem = ({ item }) => (
+    <TouchableOpacity
+    style={styles.favoriteItemContainer}
+    onPress={() => navigation.navigate('ArtDetails', { item, description: item.description })}
+  >
+    <View style={styles.artItemContainer}>
+      <Image source={item.image} style={styles.artImage} />
+      <View style={styles.priceContainer}>
+        <Text style={styles.price}>${item.price.toFixed(2)}</Text>
+        <TouchableOpacity onPress={() => addToCart(item)} style={styles.cartButton}>
+          <Icon name="cart-plus" size={24} color="#fff" />
+        </TouchableOpacity>
       </View>
     </View>
+    </TouchableOpacity>
   );
 
-  const fetchPaymentSheetParams = async () => {
-    const response = await fetch('http://192.168.0.99:3000/payment-sheet', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const { paymentIntent, ephemeralKey, customer } = await response.json();
-
-    return {
-      paymentIntent,
-      ephemeralKey,
-      customer,
-    };
+  const addToCart = (item) => {
+    setCartItems((prevItems) => [...prevItems, item]);
+    setCartTotal((prevTotal) => prevTotal + item.price);
   };
-
-  const initializePaymentSheet = async () => {
-    try {
-      const {
-        paymentIntent,
-        ephemeralKey,
-        customer,
-      } = await fetchPaymentSheetParams();
-
-      const { error } = await initPaymentSheet({
-        merchantDisplayName: 'Example, Inc.',
-        customerId: customer,
-        customerEphemeralKeySecret: ephemeralKey,
-        paymentIntentClientSecret: paymentIntent,
-        allowsDelayedPaymentMethods: true,
-        defaultBillingDetails: {
-          name: 'Jane Doe',
-        },
-        // Add the returnURL parameter here
-        returnURL: 'http:/192.168.0.99:3000/login',
-      });
-
-      if (!error) {
-        setLoading(true);
-      } else {
-        console.error(`Error code: ${error.code}`, error.message);
-      }
-    } catch (error) {
-      console.error('Error initializing payment sheet:', error);
-    }
-  };
-
-  const openPaymentSheet = async () => {
-    const { error } = await presentPaymentSheet();
-
-    if (error) {
-      Alert.alert(`Error code: ${error.code}`, error.message);
-    } else {
-      Alert.alert('Success', 'Your order is confirmed!');
-    }
-  };
-
-  useEffect(() => {
-    initializePaymentSheet();
-  }, []);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Shopping Cart</Text>
+      <Text style={styles.heading}>Favorites</Text>
       <FlatList
-        data={cartItems}
+        data={favorites}
         keyExtractor={(item) => item.id}
-        renderItem={renderCartItem}
+        renderItem={renderFavoriteItem}
+        numColumns={2}
       />
-      <View style={styles.totalContainer}>
-        <Text style={styles.totalText}>Total:</Text>
-        <Text style={styles.totalAmount}>${cartTotal.toFixed(2)}</Text>
-      </View>
-      <TouchableOpacity style={styles.payNowButton} onPress={openPaymentSheet}>
-        <Text style={styles.payNowButtonText}>Pay Now</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -107,48 +54,49 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
   },
-  cartItemContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 10,
-  },
-  productImage: {
-    width: 80,
-    height: 80,
-    marginRight: 10,
-  },
-  productDetails: {
+  favoriteItemContainer: {
     flex: 1,
+    margin: 8,
+    position: 'relative',
   },
-  cartItemText: {
-    fontSize: 16,
+  favoriteImage: {
+    width: '100%',
+    height: 150,
+    borderRadius: 8,
+    marginBottom: 8,
   },
-  totalContainer: {
+  removeButton: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+  },
+  artItemContainer: {
+    flex: 1,
+    margin: 8,
+  },
+  artImage: {
+    width: '100%',
+    height: 150,
+    borderRadius: 8,
+    marginBottom: 8,
+  },
+  priceContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 20,
-    borderTopWidth: 1,
-    paddingTop: 10,
-  },
-  totalText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  totalAmount: {
-    fontSize: 18,
-  },
-  payNowButton: {
-    backgroundColor: '#3498db',
-    padding: 15,
     alignItems: 'center',
-    borderRadius: 5,
-    marginTop: 20,
+    marginTop: 8,
   },
-  payNowButtonText: {
-    color: '#fff',
+  price: {
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  cartButton: {
+    backgroundColor: '#000000',
+    borderRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 5,
   },
 });
 
-export default CartScreen;
+export default FavoritesScreen;
