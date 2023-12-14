@@ -19,7 +19,7 @@ const CartScreen = ({ route }) => {
 
   const fetchPaymentSheetParams = async () => {
     try {
-      const response = await fetch('http://10.0.0.221:3000/payment-sheet', {
+      const response = await fetch('http://10.51.223.182:3000/payment-sheet', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ const CartScreen = ({ route }) => {
           defaultBillingDetails: {
             name: 'Jane Doe',
           },
-          returnURL: 'http://10.0.0.221:3000/login',
+          returnURL: 'http://10.51.223.182:3000/login',
         });
 
         if (!error) {

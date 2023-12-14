@@ -1,6 +1,6 @@
 //AfterLogin.js
 import React, { useState } from 'react';
-import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, FlatList, TouchableOpacity, StyleSheet ,Button } from 'react-native';
 import { useFavoriteContext } from './FavoriteContext';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ArtDetails from './ArtDetails';
@@ -15,9 +15,9 @@ const AfterLogin = ({ navigation }) => {
     { id: 'Cow', image: require('../assets/image2.jpg'),description: 'Beautiful cow painting...', isFavorite: false, price: 39.99 },
     { id: 'Skull', image: require('../assets/image1.webp'),description: 'Paper crafted skull ..', isFavorite: false, price: 12.99 },
     { id: 'lion', image: require('../assets/lion.jpg'),description: 'Beautiful lion painting...', isFavorite: false, price: 10.99 },
-    { id: 'Abstract art', image: require('../assets/image3.avif'), description: 'Beautiful abstract painting...',isFavorite: false, price: 49.99 },
+    { id: 'Abstract art', image: require('../assets/image3.jpg'), description: 'Beautiful abstract painting...',isFavorite: false, price: 49.99 },
     { id: 'Cycle art', image: require('../assets/image4.jpeg'),description: 'Beautiful cycle art painting...', isFavorite: false, price: 15.99 },
-    { id: 'Monalisa', image: require('../assets/Mona.jpg'), description: 'Beautiful monalisa painting...',isFavorite: false, price: 29.99 },
+    { id: 'Monalisa', image: require('../assets/mona.png'), description: 'Beautiful monalisa painting...',isFavorite: false, price: 29.99 },
    
   ];
 
@@ -68,7 +68,9 @@ const AfterLogin = ({ navigation }) => {
         onPress={() => navigation.navigate('Cart', { cartItems, cartTotal })}
       >
         <Text style={styles.viewCartButtonText}>View Cart</Text>
+        
       </TouchableOpacity>
+        
     </View>
   );
 };

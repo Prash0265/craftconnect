@@ -6,6 +6,7 @@ import ProfileScreen from '../screens/ProfileScreen.js';
 import FavoritesScreen from '../screens/FavoritesScreen.js';
 import DealsScreen from '../screens/DealsScreen.js';
 import CartScreen from '../screens/CartScreen.js';
+import ArtDetails from './ArtDetails.js';
 import { Ionicons } from 'react-native-vector-icons';
 
 

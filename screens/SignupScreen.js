@@ -43,7 +43,7 @@ const [maximumDate, setMaximumDate] = useState(new Date());
 
   const handleSignup = async () => {
     try {
-      await axios.post('http://10.0.0.221:3000/signup', { username, password });//Baymills
+      await axios.post('http://10.51.223.182:3000/signup', { username, password });//Baymills
       //await axios.post('http://10.51.223.182:3000/signup', {username, password ,email, dob }); //Cestar
       if (!validateUsername(username)) {
         Alert.alert('Invalid Username', 'Username should be at least 8 characters long.');
@@ -62,7 +62,7 @@ const [maximumDate, setMaximumDate] = useState(new Date());
 
       const formattedDOB = dob.toISOString().split('T')[0];
 
-      await axios.post('http://10.51.223.253:3000/signup', { username, password, email, dob: formattedDOB });
+      await axios.post('http://10.51.223.182:3000/signup', { username, password, email, dob: formattedDOB });
 
       Alert.alert('Signup Successful', 'You have successfully signed up!', [
         {

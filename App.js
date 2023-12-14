@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StripeProvider } from '@stripe/stripe-react-native';
 
-import SplashScreen from './screens/SplashScreen';  // Import SplashScreen component
+import SplashScreen from './screens/SplashScreen';
 import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
@@ -23,21 +23,20 @@ export default function App() {
     // Simulate a delay for the splash screen
     const splashTimer = setTimeout(() => {
       setSplashVisible(false);
-    }, 3000);  // Adjust the duration as needed
+    }, 3000); // Adjust the duration as needed
 
     return () => clearTimeout(splashTimer);
   }, []);
 
   return (
     <StripeProvider
-    publishableKey="pk_test_51OKVqaHWdYWtkALO6ghTEGviBJWi25YqqKHSvgphCk7TDhRTm1kO8WM19yoLzXzOi2acpuRBfqLcOHVBePA0uf3d0024wSYJDl"
+      publishableKey="pk_test_51OKVqaHWdYWtkALO6ghTEGviBJWi25YqqKHSvgphCk7TDhRTm1kO8WM19yoLzXzOi2acpuRBfqLcOHVBePA0uf3d0024wSYJDl"
       urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
       merchantIdentifier="merchant.com.{{craftconnect}}" // required for Apple Pay
     >
       <NavigationContainer>
         <FavoriteProvider>
           <Stack.Navigator initialRouteName="Splash">
-            {/* Add the SplashScreen screen */}
             {isSplashVisible ? (
               <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
             ) : (
@@ -48,6 +47,8 @@ export default function App() {
                 <Stack.Screen name="BottomTabNavigator" component={BottomTabNavigator} />
                 <Stack.Screen name="AfterLogin" component={AfterLogin} />
                 <Stack.Screen name="ArtDetails" component={ArtDetails} />
+                {/* Add the RequestForm screen */}
+               
               </>
             )}
           </Stack.Navigator>
@@ -56,4 +57,3 @@ export default function App() {
     </StripeProvider>
   );
 }
-

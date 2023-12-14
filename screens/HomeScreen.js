@@ -17,6 +17,7 @@ const HomeScreen = ({ navigation }) => {
                     onPress={() => navigation.navigate('Signup')}
                 >Signup</Text>
             </View>
+           
         </View>
   );
 };
